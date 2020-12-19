@@ -17,6 +17,8 @@ public class GameUI : MonoBehaviour
     public Image levelSlider;
     public Image currentLevelImg;
     public Image nextLevelImg;
+    public Text curentLevelText;
+    public Text nextLevelText;
 
     private Material playerMat;
     private Player player;
@@ -31,6 +33,8 @@ public class GameUI : MonoBehaviour
         nextLevelImg.color = playerMat.color;
 
         soundBtn.onClick.AddListener(() => SoundManager.instance.SoundOnOff());
+        curentLevelText.text = PlayerPrefs.GetInt("Level", 1).ToString();
+        nextLevelText.text = (PlayerPrefs.GetInt("Level", 1) + 1).ToString();
     }
     void Update()
     {
@@ -55,6 +59,9 @@ public class GameUI : MonoBehaviour
             homeUI.SetActive(false);
             inGameUI.SetActive(true);
         }
+        levelSlider.color = playerMat.color;
+        currentLevelImg.color = playerMat.color;
+        nextLevelImg.color = playerMat.color;
     }
     public void LevelSliderFill(float fillAmount)
     {

@@ -44,33 +44,42 @@ public class Player : MonoBehaviour
                 smash = false;
             if (invincible)
             {
-                currentTime -= Time.deltaTime * 0.35f;
+                //currentTime -= Time.deltaTime * 0.35f;
                 if (!fireEffect.activeInHierarchy)
                     fireEffect.SetActive(true);
+                
+                if (currentTime <= 0f)
+                {
+                    currentTime = 0;
+                    invincible = false;
+                    invincibleFill.color = Color.white;
+                }
+                if (inviincibleObj.activeInHierarchy)
+                {
+                    if (invincibleFill.color == Color.red)
+                    {
+                        currentTime -= Time.deltaTime * 0.06f;
+                    }
+                    invincibleFill.fillAmount = currentTime / 1;
+                }
             }
             else
             {
                 if (fireEffect.activeInHierarchy)
                     fireEffect.SetActive(false);
-                if (smash)
+                if (smash && invincibleFill.color == Color.white)
                     currentTime += Time.deltaTime * 0.7f;
                 else
-                    currentTime -= Time.deltaTime * 0.5f;
+                    currentTime -= Time.deltaTime * 0.3f;
                 if (currentTime >= 0.15f || invincibleFill.color == Color.red)
                     inviincibleObj.SetActive(true);
                 else
                     inviincibleObj.SetActive(false);
                 if (currentTime >= 1)
                 {
-                    currentTime = 1;
+                    currentTime = 1f;
                     invincible = true;
                     invincibleFill.color = Color.red;
-                }
-                else if (currentTime <= 0)
-                {
-                    currentTime = 0;
-                    invincible = false;
-                    invincibleFill.color = Color.white;
                 }
                 if (inviincibleObj.activeInHierarchy)
                     invincibleFill.fillAmount = currentTime / 1;
@@ -134,6 +143,7 @@ public class Player : MonoBehaviour
                 if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "plane")
                 {
                     Destroy(collision.transform.parent.gameObject);
+                    SoundManager.instance.PlaySoundFX(iDestroyClip, 0.5f);
                 }
             }
             else
