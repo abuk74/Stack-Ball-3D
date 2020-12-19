@@ -536,6 +536,8 @@ MonoBehaviour:
   levelSlider: {fileID: 1782378821}
   currentLevelImg: {fileID: 1463679634}
   nextLevelImg: {fileID: 1692371867}
+  curentLevelText: {fileID: 801748202}
+  nextLevelText: {fileID: 2001548377}
 --- !u!1 &233636127
 GameObject:
   m_ObjectHideFlags: 0
